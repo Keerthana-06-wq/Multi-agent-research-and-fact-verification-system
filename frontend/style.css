@@ -1,0 +1,98 @@
+/* Warm Editorial & Research Workbench Stylesheet */
+
+body {
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+/* Custom warm scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f2efe9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cfc7ba;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b5ac9d;
+}
+
+/* Source Credibility Tier Badges - Organic Earthy Research Palette */
+.tier-government {
+  background-color: #eef3f7;
+  color: #244154;
+  border: 1px solid #c2d6e3;
+}
+
+.tier-academic {
+  background-color: #f7eff5;
+  color: #59294f;
+  border: 1px solid #e1cad9;
+}
+
+.tier-scientific {
+  background-color: #edf5ee;
+  color: #264f2b;
+  border: 1px solid #bed6c1;
+}
+
+.tier-reference {
+  background-color: #f5f1eb;
+  color: #4f4133;
+  border: 1px solid #d4c8ba;
+}
+
+.tier-news {
+  background-color: #faf0ea;
+  color: #7a341e;
+  border: 1px solid #e5c9bc;
+}
+
+.tier-general {
+  background-color: #f2efe9;
+  color: #544b40;
+  border: 1px solid #d4cdc2;
+}
+
+/* Verdict Badges */
+.verdict-true {
+  background-color: #234f1d;
+  color: #ffffff;
+  border: 1px solid #1c3d17;
+}
+
+.verdict-false {
+  background-color: #7f1c1c;
+  color: #ffffff;
+  border: 1px solid #661616;
+}
+
+.verdict-unverified {
+  background-color: #574e43;
+  color: #ffffff;
+  border: 1px solid #3d362e;
+}
+
+/* Pill buttons */
+.pill-btn {
+  transition: all 0.12s ease-in-out;
+}
+.pill-btn:hover {
+  transform: translateY(-1px);
+  border-color: #8c8273;
+}
+
+/* History Item */
+.history-item {
+  transition: all 0.12s ease-in-out;
+}
+.history-item:hover {
+  background-color: #f2ece0;
+  border-color: #cfc6b6;
+}

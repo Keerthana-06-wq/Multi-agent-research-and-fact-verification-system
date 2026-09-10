@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Veritas | Fact Verification &amp; Research Workbench</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Warm Editorial & Research Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Newsreader', 'Georgia', 'serif'],
+            sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            warm: {
+              50: '#fbfaf7',
+              100: '#f7f4ee',
+              200: '#ede8dd',
+              300: '#dfd8c7',
+              400: '#c5bbae',
+              500: '#9e9282',
+              600: '#756b5d',
+              700: '#574e43',
+              800: '#3d362e',
+              900: '#231e19',
+              950: '#14110e',
+            },
+            terracotta: {
+              50: '#fdf6f3',
+              100: '#fbece5',
+              600: '#a34828',
+              700: '#87371c',
+              800: '#6e2c16',
+            },
+            forest: {
+              50: '#f2f7f1',
+              100: '#e1ede0',
+              600: '#2d6325',
+              700: '#234f1d',
+              800: '#1c3d17',
+            },
+            crimson: {
+              50: '#fdf2f2',
+              100: '#fbe2e2',
+              600: '#9e2424',
+              700: '#7f1c1c',
+              800: '#661616',
+            },
+            amberwood: {
+              50: '#fdf9ee',
+              100: '#faf1d6',
+              600: '#9e6d16',
+              700: '#7d540e',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#f6f4ee] text-[#29241e] font-sans min-h-screen flex flex-col antialiased selection:bg-[#dfd8c7] selection:text-[#231e19]">
+
+  <!-- Editorial Top Navigation -->
+  <header class="border-b border-[#e5dfd3] bg-[#fbf9f4] sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3.5">
+        <div class="w-9 h-9 rounded-md bg-[#383028] text-[#f7f4ee] font-serif font-bold text-lg flex items-center justify-center shadow-xs border border-[#2b241d]">
+          V
+        </div>
+        <div>
+          <span class="font-serif font-bold tracking-tight text-lg text-[#231e19]">Veritas</span>
+          <span class="text-xs text-[#736a5c] ml-2 hidden sm:inline-block border-l border-[#ded7c8] pl-2 font-medium">Fact Verification &amp; Research Workbench</span>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-4 text-xs">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#ede7dc] text-[#4d4437] font-medium border border-[#ded6c7]">
+          <span class="w-2 h-2 rounded-full bg-[#2d6325] inline-block"></span>
+          18-Step Verified Engine
+        </span>
+        <a href="/docs" target="_blank" class="text-[#696053] hover:text-[#231e19] font-medium transition hidden md:inline">API Documentation</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Two-Column Workbench Layout -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 py-6 w-full">
+    
+    <!-- Top Introductory Banner -->
+    <div class="mb-6 pb-4 border-b border-[#e5dfd3] flex flex-col md:flex-row md:items-end justify-between gap-3">
+      <div>
+        <h1 class="text-xl sm:text-2xl font-serif font-bold text-[#231e19] tracking-tight">
+          Research &amp; Evidence Workbench
+        </h1>
+        <p class="text-xs sm:text-sm text-[#696053] mt-0.5 max-w-2xl">
+          An evidence-driven fact verification environment. Formulates independent verdicts through semantic inference, proposition inversion, and authoritative cross-referencing.
+        </p>
+      </div>
+      <div class="text-xs text-[#756b5d] italic font-serif bg-[#efebe1] px-3 py-1.5 rounded border border-[#ded7c8] self-start md:self-auto">
+        &ldquo;Verify First, Answer Second&rdquo;
+      </div>
+    </div>
+
+    <!-- The 2-Column Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      
+      <!-- ======================================================= -->
+      <!-- LEFT COLUMN (Cols 1-7): Claim Input & Live Verification Card -->
+      <!-- ======================================================= -->
+      <section class="lg:col-span-7 space-y-5">
+        
+        <!-- Claim Input Panel -->
+        <div class="bg-[#fcfbf7] border border-[#ded8cb] rounded-lg shadow-2xs p-5 transition-shadow hover:shadow-xs">
+          <form id="verify-form" class="space-y-3.5">
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="query-input" class="text-xs font-bold uppercase tracking-wider text-[#544b3f]">
+                  Statement or Claim to Verify
+                </label>
+                <span class="text-2xs text-[#8c8273]">User hints ('true'/'false') are automatically ignored</span>
+              </div>
+              <div class="relative flex items-center">
+                <textarea
+                  id="query-input"
+                  rows="2"
+                  class="w-full px-3.5 py-2.5 bg-[#f6f3eb] border border-[#d6cdbd] rounded-md text-[#231e19] placeholder-[#9e9383] text-sm focus:outline-none focus:bg-[#ffffff] focus:ring-1 focus:ring-[#6e2c16] focus:border-[#6e2c16] transition resize-none leading-relaxed"
+                  placeholder="Enter a factual statement (e.g. 'India became independent in 1947', 'Water does not contain oxygen', or 'The Pacific Ocean is larger than the Atlantic Ocean')"
+                  required
+                ></textarea>
+                <button
+                  type="button"
+                  id="clear-btn"
+                  class="absolute right-2.5 top-2.5 text-[#9e9383] hover:text-[#574e43] hidden text-xs font-bold p-1"
+                  title="Clear input"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            <!-- Quick Filter / Preset Categories Dropdown or Pills -->
+            <div>
+              <div class="text-2xs font-semibold uppercase tracking-wider text-[#736a5c] mb-1.5 flex items-center justify-between">
+                <span>Quick Evaluation Benchmarks:</span>
+                <span class="text-3xs text-[#8c8273]">Click to load &amp; verify</span>
+              </div>
+              <div id="demo-cases-container" class="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto pr-1">
+                <!-- Dynamically injected pills -->
+              </div>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="pt-2 border-t border-[#eae4d7] flex items-center justify-between">
+              <span class="text-2xs text-[#7a7061] flex items-center gap-1">
+                <svg class="w-3 h-3 text-[#948877]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                </svg>
+                Strict multi-agent verification guard active
+              </span>
+              <button
+                type="submit"
+                id="submit-btn"
+                class="inline-flex items-center justify-center px-5 py-2 rounded-md bg-[#6e2c16] text-[#faf6f2] font-semibold text-xs hover:bg-[#572210] active:bg-[#451909] transition shadow-xs disabled:opacity-50 cursor-pointer"
+              >
+                <span id="btn-text">Verify Claim</span>
+                <svg id="btn-spinner" class="hidden animate-spin ml-2 h-3.5 w-3.5 text-white" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Error Card -->
+        <div id="error-card" class="hidden border border-[#eecaca] bg-[#faeded] text-[#8a2525] p-4 rounded-md text-xs">
+          <div class="font-bold mb-1">Verification Notice</div>
+          <p id="error-message"></p>
+        </div>
+
+        <!-- Initial Placeholder State (Before verification) -->
+        <div id="placeholder-box" class="bg-[#fcfbf7] border border-dashed border-[#ded7c8] rounded-lg p-8 text-center text-[#7d7363]">
+          <div class="w-12 h-12 rounded-full bg-[#f0ecdf] mx-auto flex items-center justify-center text-[#6e6352] mb-3">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="font-serif font-semibold text-base text-[#383127] mb-1">Awaiting Verification Query</h3>
+          <p class="text-xs max-w-md mx-auto text-[#6b6152] leading-relaxed">
+            Submit a factual claim or select a benchmark above. The system will independently extract the proposition, evaluate negation, check numbers, and cross-reference evidence.
+          </p>
+        </div>
+
+        <!-- Live Verification Output Card (Shown after verification) -->
+        <div id="verification-card" class="hidden space-y-4">
+          
+          <article class="bg-[#fcfbf8] border border-[#dcd5c7] rounded-lg shadow-2xs overflow-hidden">
+            
+            <!-- Verdict Header Bar -->
+            <div id="verdict-banner" class="px-5 py-3.5 border-b border-[#e2dcce] flex flex-wrap items-center justify-between gap-3 bg-[#f5f1e7]">
+              <div class="flex items-center space-x-2.5">
+                <span class="text-2xs font-bold uppercase tracking-wider text-[#6b6254]">Verdict:</span>
+                <span id="verdict-badge" class="px-3 py-1 rounded text-xs font-black uppercase tracking-wider">
+                  TRUE
+                </span>
+                <span id="category-badge" class="px-2 py-0.5 rounded text-2xs font-semibold bg-[#eae4d7] text-[#4d4437] border border-[#d8d0bf]">
+                  Scientific
+                </span>
+              </div>
+              <div class="flex items-center space-x-2 text-2xs text-[#615749]">
+                <span class="font-semibold uppercase tracking-wider">Confidence:</span>
+                <span id="confidence-val" class="font-bold text-[#231e19]">100%</span>
+                <div class="w-14 bg-[#ded6c7] rounded-full h-1.5 overflow-hidden">
+                  <div id="confidence-bar" class="bg-[#6e2c16] h-1.5 rounded-full" style="width: 100%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Body -->
+            <div class="p-5 space-y-4">
+              
+              <!-- Clean Claim -->
+              <div>
+                <div class="text-2xs font-bold text-[#73695b] uppercase tracking-wider mb-0.5">Extracted Claim:</div>
+                <div id="stated-claim" class="text-sm font-semibold text-[#211c17] leading-relaxed"></div>
+              </div>
+
+              <!-- Highlighted Correction Box (When FALSE) -->
+              <div id="correction-box" class="hidden p-3.5 rounded-md border bg-[#fbf0f0] border-[#ebc5c5] text-[#731c1c]">
+                <div class="text-2xs font-bold uppercase tracking-wider mb-0.5 flex items-center gap-1 text-[#8f2121]">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  Correct Verified Statement:
+                </div>
+                <div id="correct-statement-text" class="text-xs font-bold leading-relaxed text-[#5c1616]"></div>
+              </div>
+
+              <!-- Multiple Claims Breakdown (Step 12) -->
+              <div id="sub-claims-box" class="hidden p-3.5 bg-[#f4efe4] border border-[#dfd8ca] rounded-md space-y-2">
+                <div class="text-2xs font-bold text-[#5c5243] uppercase tracking-wider">Independent Sub-Claims Analysis:</div>
+                <div id="sub-claims-list" class="space-y-1.5"></div>
+              </div>
+
+              <!-- Explanation -->
+              <div>
+                <div class="text-2xs font-bold text-[#73695b] uppercase tracking-wider mb-1">Explanation &amp; Reasoning:</div>
+                <p id="explanation-text" class="text-xs text-[#383128] leading-relaxed font-normal bg-[#f7f4ec] p-3 rounded border border-[#e4dec0]/60"></p>
+              </div>
+
+              <!-- Evidence Points -->
+              <div id="evidence-container">
+                <div class="text-2xs font-bold text-[#73695b] uppercase tracking-wider mb-1.5">Corroborating Evidence:</div>
+                <ul id="evidence-list" class="space-y-1.5 text-xs text-[#3b342b]">
+                  <!-- Injected via JS -->
+                </ul>
+              </div>
+
+            </div>
+
+          </article>
+
+          <!-- 12-Point Quality Checklist Card -->
+          <div class="bg-[#faf8f3] border border-[#ded7c8] rounded-lg p-4">
+            <div class="text-2xs font-bold uppercase tracking-wider text-[#544b3d] mb-2 flex items-center justify-between">
+              <span class="flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-[#2d6325]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Quality Verification Checklist Passed
+              </span>
+              <span class="text-3xs text-[#7a7060]">Verified against 18 Rules</span>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-2xs text-[#4d4437]">
+              <div class="flex items-center gap-1"><span class="text-[#2d6325] font-bold">✓</span> Clean Claim Extracted</div>
+              <div class="flex items-center gap-1"><span class="text-[#2d6325] font-bold">✓</span> User Hints Ignored</div>
+              <div class="flex items-center gap-1"><span class="text-[#2d6325] font-bold">✓</span> Negation Logic Inverted</div>
+              <div class="flex items-center gap-1"><span class="text-[#2d6325] font-bold">✓</span> Universal Quantifiers</div>
+              <div class="flex items-center gap-1"><span class="text-[#2d6325] font-bold">✓</span> Arithmetic Evaluated</div>
+              <div class="flex items-center gap-1"><span class="text-[#2d6325] font-bold">✓</span> Geographic Borders</div>
+              <div class="flex items-center gap-1"><span class="text-[#2d6325] font-bold">✓</span> Comparisons Checked</div>
+              <div class="flex items-center gap-1"><span class="text-[#2d6325] font-bold">✓</span> Multi-Claims Separated</div>
+              <div class="flex items-center gap-1"><span class="text-[#2d6325] font-bold">✓</span> Anti-Hallucination Guard</div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ======================================================= -->
+      <!-- RIGHT COLUMN (Cols 8-12): Source Inspector & Recent History -->
+      <!-- ======================================================= -->
+      <aside class="lg:col-span-5 space-y-5">
+        
+        <!-- Interactive Source Inspector Panel -->
+        <div class="bg-[#fcfbf7] border border-[#ded8cb] rounded-lg shadow-2xs p-4">
+          <div class="flex items-center justify-between pb-2.5 mb-3 border-b border-[#eae4d7]">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#756b5d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+              </svg>
+              <h2 class="text-xs font-bold uppercase tracking-wider text-[#40382d]">
+                Source Documentation &amp; Citations
+              </h2>
+            </div>
+            <span id="sources-count" class="text-2xs text-[#7d7363]">0 sources</span>
+          </div>
+
+          <div id="sources-empty-state" class="text-center py-6 text-[#8c8273] text-xs">
+            <p>Authoritative source links and credibility rankings will be documented here once a claim is verified.</p>
+          </div>
+
+          <div id="sources-list" class="space-y-2.5 max-h-[380px] overflow-y-auto pr-1">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <!-- Recent Verification History Panel -->
+        <div class="bg-[#fcfbf7] border border-[#ded8cb] rounded-lg shadow-2xs p-4">
+          <div class="flex items-center justify-between pb-2.5 mb-2.5 border-b border-[#eae4d7]">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#756b5d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <h2 class="text-xs font-bold uppercase tracking-wider text-[#40382d]">
+                Workbench Verification History
+              </h2>
+            </div>
+            <button
+              id="clear-history-btn"
+              type="button"
+              class="text-3xs font-semibold text-[#8c8273] hover:text-[#574e43] uppercase tracking-wider hover:underline"
+            >
+              Clear
+            </button>
+          </div>
+
+          <div id="history-empty-state" class="text-center py-4 text-[#8c8273] text-xs">
+            <p>No recent verifications yet.</p>
+          </div>
+
+          <div id="history-list" class="space-y-1.5 max-h-[260px] overflow-y-auto pr-1">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <!-- Methodology Note -->
+        <div class="bg-[#f2efe6] border border-[#e0dad0] rounded-lg p-3.5 text-2xs text-[#635a4d] leading-relaxed">
+          <div class="font-bold text-[#383126] mb-1">Standard of Proof:</div>
+          <p>
+            Veritas enforces a strict multi-tier verification standard. Positive claims must be substantiated by empirical physical or historical records. Negative claims are verified by testing the truth-value of the inverted proposition. Missing evidence is strictly reported as <span class="font-bold text-[#453e33]">UNVERIFIED</span>.
+          </p>
+        </div>
+
+      </aside>
+
+    </div>
+
+    <!-- Editorial Footer -->
+    <footer class="mt-12 pt-5 border-t border-[#e2dcce] text-center text-2xs text-[#786e60] space-y-1">
+      <p class="font-serif italic">&ldquo;Understand &rarr; Verify &rarr; Cross-Check &rarr; Decide &rarr; Explain&rdquo;</p>
+      <p>Veritas Two-Column Research &amp; Fact Verification Workbench &bull; Academic Minor Project Demonstration</p>
+    </footer>
+
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

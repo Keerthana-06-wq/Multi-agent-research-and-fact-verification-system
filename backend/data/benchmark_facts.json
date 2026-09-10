@@ -1,0 +1,292 @@
+[
+  {
+    "keywords": ["water", "turn", "ice", "freeze"],
+    "exact_claim_match": "Water turns into ice when it freezes.",
+    "is_true": true,
+    "correct_statement": "Water turns into ice when it freezes under appropriate conditions (at or below 0°C / 32°F).",
+    "explanation": "Freezing is an established thermodynamic phase transition in which liquid water crystallizes into solid ice when cooled to or below its freezing point (0°C / 32°F at standard atmospheric pressure).",
+    "evidence": [
+      "Water molecules lose thermal kinetic energy during freezing, forming a stable crystalline hexagonal lattice known as ice.",
+      "National Institute of Standards and Technology (NIST) and IUPAC thermodynamic tables define the ice-water phase equilibrium at 273.15 K (0°C)."
+    ],
+    "sources": [
+      {
+        "title": "USGS Water Science School - The Water Cycle: Freezing and Melting",
+        "url": "https://www.usgs.gov/special-topics/water-science-school/science/water-cycle-freezing-and-melting",
+        "domain": "usgs.gov",
+        "snippet": "Freezing is the process where a liquid changes to a solid. Water freezes at 32 degrees Fahrenheit (0 degrees Celsius) to form ice.",
+        "tier": "Government",
+        "credibility_score": 98
+      },
+      {
+        "title": "NIST Chemistry WebBook - Phase Transition Data for Water",
+        "url": "https://webbook.nist.gov/chemistry/fluid/",
+        "domain": "nist.gov",
+        "snippet": "Standard freezing and melting phase boundary of water at 1 atm is 273.15 K.",
+        "tier": "Government",
+        "credibility_score": 98
+      }
+    ]
+  },
+  {
+    "keywords": ["water", "ice", "freeze"],
+    "exact_claim_match": "freezing of water will not turns into ice",
+    "is_true": false,
+    "correct_statement": "When water freezes, it changes from a liquid into solid ice under appropriate conditions.",
+    "explanation": "The claim is false. Freezing is the physical phase change in which water transitions from a liquid state into a solid state (ice). The gathered scientific evidence directly contradicts the user's negative claim.",
+    "evidence": [
+      "Physical chemistry establishes that the freezing of liquid water at or below 0°C produces crystalline ice.",
+      "The claim asserting that freezing will not turn water into ice is directly refuted by fundamental laws of thermodynamics."
+    ],
+    "sources": [
+      {
+        "title": "USGS Water Science - Freezing and Phase Changes",
+        "url": "https://www.usgs.gov/special-topics/water-science-school/science/water-cycle-freezing-and-melting",
+        "domain": "usgs.gov",
+        "snippet": "When water freezes, it transitions from liquid to solid ice at 0 degrees Celsius.",
+        "tier": "Government",
+        "credibility_score": 98
+      },
+      {
+        "title": "Encyclopaedia Britannica - Freezing",
+        "url": "https://www.britannica.com/science/freezing-phase-change",
+        "domain": "britannica.com",
+        "snippet": "Freezing is a physical process that marks the transition of a substance from a liquid state to a solid state, as when water turns to ice.",
+        "tier": "Reference / Encyclopedia",
+        "credibility_score": 88
+      }
+    ]
+  },
+  {
+    "keywords": ["water", "not", "turn", "ice", "freeze"],
+    "exact_claim_match": "Water does not turn into ice when it freezes.",
+    "is_true": false,
+    "correct_statement": "Water turns into ice when it freezes.",
+    "explanation": "The claim is false. By definition in physical chemistry, freezing is the liquid-to-solid phase transition where water crystallizes into ice.",
+    "evidence": [
+      "At 0°C (32°F) under 1 atm pressure, liquid water transitions into solid ice.",
+      "Contradicted by centuries of empirical physical science and thermodynamic observation."
+    ],
+    "sources": [
+      {
+        "title": "USGS Water Science - Freezing Process",
+        "url": "https://www.usgs.gov/special-topics/water-science-school/science/water-cycle-freezing-and-melting",
+        "domain": "usgs.gov",
+        "snippet": "Freezing occurs when liquid water cools and changes into solid ice.",
+        "tier": "Government",
+        "credibility_score": 98
+      }
+    ]
+  },
+  {
+    "keywords": ["earth", "revolve", "sun"],
+    "exact_claim_match": "The Earth revolves around the Sun.",
+    "is_true": true,
+    "correct_statement": "The Earth revolves around the Sun.",
+    "explanation": "Modern astronomical science, orbital mechanics, and satellite telemetry establish that the Earth orbits the Sun in an elliptical path once every approximately 365.25 days.",
+    "evidence": [
+      "Copernican heliocentric model confirmed by Kepler's laws of planetary motion and Newton's law of universal gravitation.",
+      "Direct observational evidence from NASA, ESA, and global observatories tracking planetary orbits in the solar system."
+    ],
+    "sources": [
+      {
+        "title": "Solar System Exploration - Our Sun & Planets",
+        "url": "https://solarsystem.nasa.gov/solar-system/our-solar-system/overview/",
+        "domain": "solarsystem.nasa.gov",
+        "snippet": "The Earth is the third planet from the Sun and orbits the Sun at an average distance of about 93 million miles (150 million km).",
+        "tier": "Scientific Institution",
+        "credibility_score": 98
+      },
+      {
+        "title": "Earth's Orbit - Britannica",
+        "url": "https://www.britannica.com/science/Earth-planet",
+        "domain": "britannica.com",
+        "snippet": "Earth revolves around the Sun counterclockwise in an elliptical orbit once every 365.256 days.",
+        "tier": "Reference / Encyclopedia",
+        "credibility_score": 88
+      }
+    ]
+  },
+  {
+    "keywords": ["earth", "not", "revolve", "sun"],
+    "exact_claim_match": "The Earth does not revolve around the Sun.",
+    "is_true": false,
+    "correct_statement": "The Earth revolves around the Sun.",
+    "explanation": "The claim is false. Observational astronomy, physics, and satellite missions prove that the Earth orbits the Sun. Asserting that it does not revolve around the Sun is directly contradicted by scientific reality.",
+    "evidence": [
+      "Keplerian orbital dynamics and gravitational physics establish the Earth's annual orbit around the Sun.",
+      "Direct measurements from NASA space telescopes and orbital satellites confirm the Earth-Sun barycentric orbit."
+    ],
+    "sources": [
+      {
+        "title": "NASA Science - Solar System Dynamics",
+        "url": "https://science.nasa.gov/solar-system/",
+        "domain": "science.nasa.gov",
+        "snippet": "The Earth completes one revolution around the Sun every 365.25 days.",
+        "tier": "Scientific Institution",
+        "credibility_score": 98
+      }
+    ]
+  },
+  {
+    "keywords": ["sun", "revolve", "earth"],
+    "exact_claim_match": "The Sun revolves around the Earth.",
+    "is_true": false,
+    "correct_statement": "The Earth revolves around the Sun.",
+    "explanation": "The claim that the Sun revolves around the Earth represents the ancient geocentric model (Ptolemaic system), which was decisively disproven by Nicolaus Copernicus, Johannes Kepler, Galileo Galilei, and Isaac Newton.",
+    "evidence": [
+      "The heliocentric model, validated by centuries of astronomical observations and space exploration, proves the Earth revolves around the Sun.",
+      "The Sun contains 99.8% of the mass of the solar system, making it the gravitational center around which planets orbit."
+    ],
+    "sources": [
+      {
+        "title": "NASA Science - Solar System Dynamics",
+        "url": "https://science.nasa.gov/solar-system/",
+        "domain": "science.nasa.gov",
+        "snippet": "The planets in our solar system orbit the Sun. The Earth takes 365 days to complete one revolution around the Sun.",
+        "tier": "Scientific Institution",
+        "credibility_score": 98
+      },
+      {
+        "title": "Geocentric Model History - Oxford Reference",
+        "url": "https://www.oxfordreference.com/display/10.1093/oi/authority.20110803095848247",
+        "domain": "oxfordreference.com",
+        "snippet": "The geocentric model placed Earth at the center of the universe. It was superseded in the 16th and 17th centuries by the heliocentric theory.",
+        "tier": "Academic / Research",
+        "credibility_score": 92
+      }
+    ]
+  },
+  {
+    "keywords": ["new delhi", "capital", "india"],
+    "exact_claim_match": "New Delhi is the capital of India.",
+    "is_true": true,
+    "correct_statement": "New Delhi is the capital of India.",
+    "explanation": "New Delhi is the official national capital of the Republic of India, serving as the seat of the executive, legislative, and judiciary branches of the Government of India.",
+    "evidence": [
+      "The foundation stone was laid in December 1911 by King George V, and New Delhi was inaugurated as the capital in February 1931.",
+      "Article 130 and statutory government gazettes designate New Delhi as the seat of the Supreme Court and Parliament of India."
+    ],
+    "sources": [
+      {
+        "title": "Government of India - National Portal",
+        "url": "https://www.india.gov.in/my-government",
+        "domain": "india.gov.in",
+        "snippet": "New Delhi is the capital of India and the seat of all three branches of the Government of India.",
+        "tier": "Government",
+        "credibility_score": 98
+      },
+      {
+        "title": "Delhi Capital Territory - Encyclopaedia Britannica",
+        "url": "https://www.britannica.com/place/Delhi",
+        "domain": "britannica.com",
+        "snippet": "New Delhi, national capital of India. It is situated in the north-central part of the country.",
+        "tier": "Reference / Encyclopedia",
+        "credibility_score": 88
+      }
+    ]
+  },
+  {
+    "keywords": ["mumbai", "capital", "india"],
+    "exact_claim_match": "Mumbai is the capital of India.",
+    "is_true": false,
+    "correct_statement": "New Delhi is the capital of India.",
+    "explanation": "Mumbai is the state capital of Maharashtra and the financial/commercial hub of India, but it is NOT the national capital of India. The national capital of India is New Delhi.",
+    "evidence": [
+      "Constitution of India and official government gazettes confirm New Delhi as the seat of the central government.",
+      "Mumbai is the capital city of Maharashtra state, housing the state legislature, but not the federal capital."
+    ],
+    "sources": [
+      {
+        "title": "Official Portal of Government of India",
+        "url": "https://www.india.gov.in/my-government",
+        "domain": "india.gov.in",
+        "snippet": "New Delhi serves as the national capital of India. Mumbai is the state capital of Maharashtra.",
+        "tier": "Government",
+        "credibility_score": 98
+      },
+      {
+        "title": "Mumbai City Profile - Maharashtra State Portal",
+        "url": "https://mumbai.gov.in/",
+        "domain": "mumbai.gov.in",
+        "snippet": "Mumbai is the capital of Maharashtra and financial capital of the country.",
+        "tier": "Government",
+        "credibility_score": 96
+      }
+    ]
+  },
+  {
+    "keywords": ["aliens", "pyramids"],
+    "exact_claim_match": "Aliens definitely built the pyramids.",
+    "verdict": "UNVERIFIED",
+    "explanation": "There is no reliable scientific, archaeological, or historical evidence supporting the claim that extraterrestrial beings constructed the pyramids of Egypt.",
+    "evidence": [
+      "Mainstream archaeology, papyrus documents (such as the Diary of Merer), and worker settlements at Giza provide conclusive evidence of human construction by ancient Egyptians circa 2500 BC.",
+      "Claims attributing ancient megalithic architecture to extraterrestrial civilizations lack peer-reviewed physical evidence."
+    ],
+    "sources": [
+      {
+        "title": "Smithsonian Magazine - How the Pyramids Were Built",
+        "url": "https://www.smithsonianmag.com/history/ancient-egypt-pyramid-builders-180967586/",
+        "domain": "smithsonianmag.com",
+        "snippet": "Archaeological excavations have uncovered the tombs and barracks of the thousands of Egyptian laborers who constructed the Pyramids of Giza.",
+        "tier": "Academic / Research",
+        "credibility_score": 94
+      }
+    ]
+  },
+  {
+    "keywords": ["thomas edison", "light bulb", "internet"],
+    "exact_claim_match": "Thomas Edison invented the light bulb and the internet.",
+    "verdict": "PARTIALLY TRUE",
+    "partially_true_details": {
+      "correct_part": "Thomas Edison developed and commercialized the first practical, long-lasting incandescent light bulb (patented in 1879).",
+      "incorrect_part": "Thomas Edison did NOT invent the internet. The internet was developed decades after Edison's death (he died in 1931) by computer scientists funded by ARPA/DARPA (such as Vint Cerf, Bob Kahn) and Tim Berners-Lee (World Wide Web in 1989).",
+      "accurate_statement": "Thomas Edison invented a practical incandescent electric lamp, while the internet was developed decades later by computer scientists including Vint Cerf, Bob Kahn, and ARPANET researchers."
+    },
+    "explanation": "The statement combines two distinct claims: one historically valid (Edison's work on the incandescent electric lamp) and one completely false (Edison inventing the internet). Edison passed away in 1931, whereas computer networking began in the late 1960s with ARPANET.",
+    "evidence": [
+      "Thomas Edison received US Patent 223,898 for an electric lamp in 1880.",
+      "The internet originated with ARPANET in 1969, TCP/IP in 1983, and the World Wide Web in 1989."
+    ],
+    "sources": [
+      {
+        "title": "Thomas Edison's Light Bulb - National Museum of American History",
+        "url": "https://americanhistory.si.edu/collections/search/object/nmah_742447",
+        "domain": "americanhistory.si.edu",
+        "snippet": "Edison developed a carbon filament that burned for 13.5 hours in October 1879, leading to the commercial electric incandescent bulb.",
+        "tier": "Academic / Research",
+        "credibility_score": 94
+      },
+      {
+        "title": "Brief History of the Internet - Internet Society",
+        "url": "https://www.internetsociety.org/internet/history-internet/brief-history-internet/",
+        "domain": "internetsociety.org",
+        "snippet": "The first recorded description of the social interactions that could be enabled through networking was a series of memos written by J.C.R. Licklider of MIT in August 1962.",
+        "tier": "Reference / Encyclopedia",
+        "credibility_score": 90
+      }
+    ]
+  },
+  {
+    "keywords": ["earth", "age", "billion years"],
+    "exact_claim_match": "The Earth is approximately 4.5 billion years old.",
+    "is_true": true,
+    "correct_statement": "The Earth is approximately 4.54 billion years old (± 50 million years).",
+    "explanation": "Scientific consensus across geology, geophysics, and astrophysics confirms that the Earth is approximately 4.54 billion years old, determined through radiometric dating of meteorite material (such as the Canyon Diablo meteorite) and the oldest known terrestrial and lunar rocks.",
+    "evidence": [
+      "Radiometric age dating using uranium-lead decay chains on zircon crystals and primordial chondritic meteorites consistently yields ages around 4.54 billion years.",
+      "USGS and international geophysical surveys corroborate this age."
+    ],
+    "sources": [
+      {
+        "title": "Age of the Earth - U.S. Geological Survey (USGS)",
+        "url": "https://www.usgs.gov/faqs/how-old-earth",
+        "domain": "usgs.gov",
+        "snippet": "The age of the Earth is estimated to be 4.54 billion years (plus or minus 50 million years) based on radiometric dating of meteorite material.",
+        "tier": "Government",
+        "credibility_score": 98
+      }
+    ]
+  }
+]
