@@ -2,8 +2,15 @@ import re
 import logging
 from typing import Dict, Any, List, Optional, Tuple
 from enum import Enum
-import torch
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
+try:
+    import torch
+    from transformers import AutoTokenizer, AutoModelForSequenceClassification
+    HAS_TORCH_TRANSFORMERS = True
+except ImportError:
+    torch = None
+    AutoTokenizer = None
+    AutoModelForSequenceClassification = None
+    HAS_TORCH_TRANSFORMERS = False
 
 logger = logging.getLogger(__name__)
 
@@ -25,6 +32,10 @@ class SemanticNLIAgent:
     def __init__(self):
         self.device = "cpu"
         self.has_nli_model = False
+        if not HAS_TORCH_TRANSFORMERS:
+            logger.info("PyTorch/Transformers not installed; running in lightweight heuristic & benchmark mode.")
+            return
+
         try:
             model_name = "cross-encoder/nli-deberta-v3-xsmall"
             self.tokenizer = AutoTokenizer.from_pretrained(model_name)
