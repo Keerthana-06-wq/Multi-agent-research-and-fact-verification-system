@@ -288,5 +288,63 @@
         "credibility_score": 98
       }
     ]
+  },
+  {
+    "keywords": ["india", "independent", "1947"],
+    "exact_claim_match": "India became independent in 1947.",
+    "is_true": true,
+    "correct_statement": "India became independent in 1947.",
+    "explanation": "India gained independence from British rule on August 15, 1947, through the Indian Independence Act 1947.",
+    "evidence": [
+      "The Indian Independence Act 1947 partitioned British India into the independent dominions of India and Pakistan on August 15, 1947.",
+      "National historical archives and parliamentary records confirm India became an independent nation in 1947."
+    ],
+    "sources": [
+      {
+        "title": "National Portal of India - Independence Day",
+        "url": "https://www.india.gov.in/topics/national-festivals/independence-day",
+        "domain": "india.gov.in",
+        "snippet": "India attained independence on August 15, 1947, establishing sovereign self-governance.",
+        "tier": "Government",
+        "credibility_score": 98
+      },
+      {
+        "title": "Encyclopaedia Britannica - Indian Independence Act",
+        "url": "https://www.britannica.com/event/Indian-Independence-Act",
+        "domain": "britannica.com",
+        "snippet": "The Indian Independence Act 1947 was passed by the British Parliament, granting full independence to India.",
+        "tier": "Reference / Encyclopedia",
+        "credibility_score": 90
+      }
+    ]
+  },
+  {
+    "keywords": ["sri lanka", "surrounded", "water"],
+    "exact_claim_match": "Sri Lanka is surrounded by water.",
+    "is_true": true,
+    "correct_statement": "Sri Lanka is surrounded by water.",
+    "explanation": "Sri Lanka is an island country located in the Indian Ocean, southwest of the Bay of Bengal and southeast of the Arabian Sea. As an island nation, it is entirely bounded and surrounded by water.",
+    "evidence": [
+      "Sri Lanka is an island nation in South Asia located in the Indian Ocean, possessing maritime borders and completely surrounded by water.",
+      "Geographic surveys confirm Sri Lanka has no terrestrial land borders with any other nation."
+    ],
+    "sources": [
+      {
+        "title": "Survey Department of Sri Lanka - Geography",
+        "url": "https://www.survey.gov.lk/",
+        "domain": "survey.gov.lk",
+        "snippet": "Sri Lanka is an island nation in the Indian Ocean, entirely surrounded by maritime waters.",
+        "tier": "Government",
+        "credibility_score": 98
+      },
+      {
+        "title": "CIA World Factbook - Sri Lanka Geography",
+        "url": "https://www.cia.gov/the-world-factbook/countries/sri-lanka/",
+        "domain": "cia.gov",
+        "snippet": "Sri Lanka is an island in the Indian Ocean, south of India, completely surrounded by water with 1,340 km of coastline.",
+        "tier": "Government",
+        "credibility_score": 96
+      }
+    ]
   }
 ]

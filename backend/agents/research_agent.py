@@ -18,54 +18,17 @@ try:
 except Exception as e:
     logger.warning(f"Could not set Wikipedia User-Agent: {e}")
 
-class ResearchAgent:
+class ResearchAgent1Supporting:
     """
-    Agent 3: Universal Research Agent
-    Gathers factual evidence for ANY claim across Wikipedia, live web (DDGS), and ground-truth databases.
-    Splits text into verifiable factual sentences for semantic NLI evaluation.
+    Research Agent 1: Primary & Supporting Evidence Agent
+    Specializes in authoritative encyclopedic archives (Wikipedia) and verified institutional benchmarks.
+    Responsible for retrieving definitions, historical facts, and primary ground truth.
     """
 
-    def __init__(self):
-        self.benchmark_facts = self._load_benchmark_facts()
-
-    def _load_benchmark_facts(self) -> List[Dict[str, Any]]:
-        path = settings.BENCHMARK_DATA_PATH
-        if path.exists():
-            try:
-                with open(path, "r", encoding="utf-8") as f:
-                    return json.load(f)
-            except Exception as e:
-                logger.error(f"Error loading benchmark facts: {e}")
-        return []
-
-    def check_benchmark_match(self, claim: str) -> Optional[Dict[str, Any]]:
-        claim_norm = re.sub(r'[^a-zA-Z0-9\s]', '', claim).lower().strip()
-
-        for item in self.benchmark_facts:
-            exact_norm = re.sub(r'[^a-zA-Z0-9\s]', '', item.get("exact_claim_match", "")).lower().strip()
-            if exact_norm == claim_norm:
-                return item
-
-        claim_clean = claim.lower().strip()
-        for item in self.benchmark_facts:
-            exact_norm = item.get("exact_claim_match", "").lower().strip()
-            if "sun revolves around the earth" in claim_clean:
-                if "sun revolves around the earth" in exact_norm:
-                    return item
-            elif "earth revolves around the sun" in claim_clean:
-                if "earth revolves around the sun" in exact_norm:
-                    return item
-
-            keywords = item.get("keywords", [])
-            if keywords and all(k in claim_clean for k in keywords):
-                return item
-
-        return None
+    def __init__(self, benchmark_facts: Optional[List[Dict[str, Any]]] = None):
+        self.benchmark_facts = benchmark_facts or []
 
     def extract_key_entities(self, text: str) -> List[str]:
-        """
-        Extracts candidate noun phrases and search keywords from the claim.
-        """
         clean = re.sub(r'\b(is|are|was|were|the|a|an|in|on|at|not|does|did|will|can|all|every)\b', '', text, flags=re.IGNORECASE)
         words = [w.strip() for w in re.findall(r'\b[A-Za-z0-9-]{3,}\b', clean)]
         entities = []
@@ -79,7 +42,6 @@ class ResearchAgent:
         sources = []
         try:
             search_queries = [query]
-            # Add entity keywords
             entities = self.extract_key_entities(query)
             for ent in entities:
                 if ent.lower() not in [q.lower() for q in search_queries]:
@@ -117,6 +79,18 @@ class ResearchAgent:
 
         return sources
 
+    def execute_task(self, query: str) -> List[SourceItem]:
+        logger.info(f"Research Agent 1 executing supporting research task: '{query}'")
+        return self.search_wikipedia(query, limit=2)
+
+
+class ResearchAgent2Alternative:
+    """
+    Research Agent 2: Alternative & Counter-Evidence Agent
+    Specializes in live web search (DuckDuckGo `ddgs`) to gather independent, contemporary,
+    or contrasting evidence to avoid single-source reliance and identify counterexamples.
+    """
+
     def search_web_live(self, query: str, max_results: int = 4) -> List[SourceItem]:
         sources = []
         try:
@@ -140,7 +114,61 @@ class ResearchAgent:
 
         return sources
 
-    def gather_evidence(self, claim: str) -> Dict[str, Any]:
+    def execute_task(self, query: str) -> List[SourceItem]:
+        logger.info(f"Research Agent 2 executing alternative/counter-evidence research task: '{query}'")
+        return self.search_web_live(query, max_results=3)
+
+
+class ResearchAgent:
+    """
+    Coordinating Research Agent:
+    Connects Research Agent 1 (Supporting/Wikipedia) and Research Agent 2 (Alternative/Web DDGS).
+    Maintains full backward compatibility with the existing system.
+    """
+
+    def __init__(self):
+        self.benchmark_facts = self._load_benchmark_facts()
+        self.agent_1 = ResearchAgent1Supporting(self.benchmark_facts)
+        self.agent_2 = ResearchAgent2Alternative()
+
+    def _load_benchmark_facts(self) -> List[Dict[str, Any]]:
+        path = settings.BENCHMARK_DATA_PATH
+        if path.exists():
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except Exception as e:
+                logger.error(f"Error loading benchmark facts: {e}")
+        return []
+
+    def check_benchmark_match(self, claim: str) -> Optional[Dict[str, Any]]:
+        claim_norm = re.sub(r'[^a-zA-Z0-9\s]', '', claim).lower().strip()
+
+        for item in self.benchmark_facts:
+            exact_norm = re.sub(r'[^a-zA-Z0-9\s]', '', item.get("exact_claim_match", "")).lower().strip()
+            if exact_norm == claim_norm:
+                return item
+
+        claim_clean = claim.lower().strip()
+        for item in self.benchmark_facts:
+            exact_norm = item.get("exact_claim_match", "").lower().strip()
+            if "sun revolves around the earth" in claim_clean:
+                if "sun revolves around the earth" in exact_norm:
+                    return item
+            elif "earth revolves around the sun" in claim_clean:
+                if "earth revolves around the sun" in exact_norm:
+                    return item
+
+            keywords = item.get("keywords", [])
+            if keywords and all(k in claim_clean for k in keywords):
+                return item
+
+        return None
+
+    def gather_evidence(self, claim: str, sub_queries: Optional[List[str]] = None) -> Dict[str, Any]:
+        """
+        Coordinates dual research agents to collect supporting and alternative evidence.
+        """
         benchmark = self.check_benchmark_match(claim)
 
         gathered_sources: List[SourceItem] = []
@@ -157,12 +185,14 @@ class ResearchAgent:
                 "is_authoritative_benchmark": True
             }
 
-        # 1. Search Wikipedia
-        wiki_sources = self.search_wikipedia(claim, limit=2)
+        # 1. Research Agent 1: Wikipedia / Supporting Evidence
+        q1 = sub_queries[0] if sub_queries and len(sub_queries) > 0 else claim
+        wiki_sources = self.agent_1.execute_task(q1)
         gathered_sources.extend(wiki_sources)
 
-        # 2. Search Live Web
-        web_sources = self.search_web_live(claim, max_results=3)
+        # 2. Research Agent 2: Live Web DDGS / Alternative Perspectives
+        q2 = sub_queries[1] if sub_queries and len(sub_queries) > 1 else claim
+        web_sources = self.agent_2.execute_task(q2)
         gathered_sources.extend(web_sources)
 
         # Deduplicate
@@ -175,14 +205,12 @@ class ResearchAgent:
 
         unique_sources.sort(key=lambda s: s.credibility_score, reverse=True)
 
-        for s in unique_sources[:4]:
+        for s in unique_sources[:5]:
             # Break snippet into full sentences
             sentences = re.split(r'(?<=[.!?])\s+', s.snippet)
             for sent in sentences:
                 sent_clean = sent.strip()
-                if len(sent_clean) > 20 and not sent_clean.endswith("..."):
-                    evidence_snippets.append(sent_clean)
-                elif len(sent_clean) > 20:
+                if len(sent_clean) > 20:
                     evidence_snippets.append(sent_clean)
 
         return {

@@ -22,6 +22,7 @@ class ClaimCategory(str, Enum):
 class FactVerdict(str, Enum):
     TRUE = "TRUE"
     FALSE = "FALSE"
+    PARTIALLY_TRUE = "PARTIALLY TRUE"
     UNVERIFIED = "UNVERIFIED"
 
 class SourceTier(str, Enum):
