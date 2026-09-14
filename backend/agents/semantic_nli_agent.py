@@ -2,15 +2,12 @@ import re
 import logging
 from typing import Dict, Any, List, Optional, Tuple
 from enum import Enum
-try:
-    import torch
-    from transformers import AutoTokenizer, AutoModelForSequenceClassification
-    HAS_TORCH_TRANSFORMERS = True
-except ImportError:
-    torch = None
-    AutoTokenizer = None
-    AutoModelForSequenceClassification = None
-    HAS_TORCH_TRANSFORMERS = False
+import os
+from backend.config import settings
+# Lazy placeholders for heavy ML dependencies
+torch = None
+AutoTokenizer = None
+AutoModelForSequenceClassification = None
 
 logger = logging.getLogger(__name__)
 
@@ -23,35 +20,78 @@ class SemanticNLIAgent:
     """
     Agent 6: Universal Semantic NLI & Reasoning Agent
     Combines:
-    1. Pre-trained DeBERTa-v3 NLI Model (cross-encoder/nli-deberta-v3-xsmall)
+    1. Pre-trained Compact NLI Model (cross-encoder/nli-deberta-v3-xsmall, ~88 MB)
        Evaluates (premise, hypothesis) -> [Contradiction, Entailment, Neutral]
     2. Deep domain rules (Negation, Universal Quantifiers, Comparisons, Physical Laws)
     Enables accurate TRUE / FALSE determination for ANY statement.
     """
 
-    def __init__(self):
+    def __init__(self, model_name: Optional[str] = None):
         self.device = "cpu"
+        self.model_name = model_name or getattr(settings, "NLI_MODEL_NAME", "cross-encoder/nli-deberta-v3-xsmall")
+        self.tokenizer = None
+        self.model = None
         self.has_nli_model = False
-        if not HAS_TORCH_TRANSFORMERS:
-            logger.info("PyTorch/Transformers not installed; running in lightweight heuristic & benchmark mode.")
-            return
+        self._init_attempted = False
 
+    def _ensure_model_loaded(self):
+        """Lazy initialization: only import torch/transformers and load weights when requested."""
+        if self._init_attempted:
+            return
+        self._init_attempted = True
+
+        global torch, AutoTokenizer, AutoModelForSequenceClassification
+        if torch is None:
+            try:
+                import torch
+                from transformers import AutoTokenizer, AutoModelForSequenceClassification
+            except ImportError:
+                logger.info("PyTorch/Transformers not installed; running in lightweight heuristic & benchmark mode.")
+                return
+
+        # Safeguard: if roberta-large-mnli is requested on Render free tier (<1GB RAM)
+        if "large" in self.model_name.lower():
+            logger.warning(
+                f"{self.model_name} requires ~1.4 GB RAM, which exceeds Render's 512 MB limit. "
+                "Automatically selecting memory-efficient cross-encoder/nli-deberta-v3-xsmall (~88 MB)."
+            )
+            self.model_name = "cross-encoder/nli-deberta-v3-xsmall"
+
+        # 1. Attempt local cache first (zero network latency)
         try:
-            model_name = "cross-encoder/nli-deberta-v3-xsmall"
-            self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-            self.model = AutoModelForSequenceClassification.from_pretrained(model_name)
+            self.tokenizer = AutoTokenizer.from_pretrained(self.model_name, local_files_only=True)
+            self.model = AutoModelForSequenceClassification.from_pretrained(self.model_name, local_files_only=True)
             self.model.eval()
             self.has_nli_model = True
-            logger.info("Loaded DeBERTa-v3 NLI model successfully.")
-        except Exception as e:
-            logger.warning(f"Could not load local DeBERTa NLI model: {e}")
+            logger.info(f"Loaded {self.model_name} from local cache.")
+            return
+        except Exception:
+            pass
+
+        # 2. Check if online download is permitted
+        allow_download = os.getenv("ENABLE_NLI_DOWNLOAD", "true").lower() == "true"
+        if allow_download:
+            try:
+                logger.info(f"Loading compact NLI model {self.model_name}...")
+                self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+                self.model = AutoModelForSequenceClassification.from_pretrained(self.model_name)
+                self.model.eval()
+                self.has_nli_model = True
+                logger.info(f"Loaded {self.model_name} successfully.")
+                return
+            except Exception as e:
+                logger.warning(f"Could not load {self.model_name}: {e}. Operating in rule-based NLI mode.")
+                self.has_nli_model = False
+        else:
+            logger.info("ENABLE_NLI_DOWNLOAD is false; operating in rule-based NLI mode.")
             self.has_nli_model = False
 
     def predict_nli_batch(self, pairs: List[List[str]]) -> List[Tuple[float, float, float]]:
         """
         Runs batch NLI inference. Returns list of (p_contra, p_entail, p_neutral).
         """
-        if not self.has_nli_model or not pairs:
+        self._ensure_model_loaded()
+        if not self.has_nli_model or not pairs or not self.model or not self.tokenizer:
             return []
         try:
             inputs = self.tokenizer(pairs, padding=True, truncation=True, max_length=256, return_tensors="pt")
@@ -65,6 +105,9 @@ class SemanticNLIAgent:
         except Exception as e:
             logger.warning(f"NLI batch inference error: {e}")
             return []
+        finally:
+            import gc
+            gc.collect()
 
     def evaluate_universal_claims(self, claim_clean: str) -> Optional[Tuple[NLIRelation, str, Optional[str]]]:
         lower = claim_clean.lower()

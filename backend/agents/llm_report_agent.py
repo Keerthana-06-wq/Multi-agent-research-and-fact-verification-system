@@ -37,8 +37,8 @@ class LLMReportAgent:
         """
         Generates the narrative explanation and final report.
         """
-        # If LLM Manager is active and loaded, attempt prompt-guided synthesis
-        if self.llm and getattr(self.llm, "has_llm", False):
+        # If LLM Manager is available (API or local), attempt prompt-guided synthesis
+        if self.llm and getattr(self.llm, "is_available", lambda: False)():
             try:
                 top_ev = supporting_evidence[0] if supporting_evidence else (contradicting_evidence[0] if contradicting_evidence else "")
                 prompt = (

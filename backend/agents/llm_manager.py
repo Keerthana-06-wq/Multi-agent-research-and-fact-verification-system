@@ -4,22 +4,17 @@ from typing import List, Dict, Any, Optional, Tuple
 from backend.core.evidence_store import ResearchTask
 from backend.config import settings
 
-try:
-    import torch
-    from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-    HAS_TRANSFORMERS = True
-except ImportError:
-    torch = None
-    AutoTokenizer = None
-    AutoModelForSeq2SeqLM = None
-    HAS_TRANSFORMERS = False
+# Lazy placeholders for heavy ML dependencies
+torch = None
+AutoTokenizer = None
+AutoModelForSeq2SeqLM = None
 
 logger = logging.getLogger(__name__)
 
 class LLMManagerAgent:
     """
     Component 1: LLM Manager & Orchestrator
-    Powered by FLAN-T5 (google/flan-t5-base).
+    Powered by FLAN-T5 (google/flan-t5-small / flan-t5-base) or Gemini API.
     
     Responsibilities:
     1. Understand user's request and classify intent:
@@ -36,17 +31,44 @@ class LLMManagerAgent:
     """
 
     def __init__(self, model_name: Optional[str] = None):
-        self.model_name = model_name or getattr(settings, "LLM_MODEL_NAME", "google/flan-t5-base")
+        self.model_name = model_name or getattr(settings, "LLM_MODEL_NAME", "google/flan-t5-small")
         self.tokenizer = None
         self.model = None
         self.has_llm = False
-        
-        self._init_model()
+        self.has_api_llm = False
+        self._init_attempted = False
 
-    def _init_model(self):
-        if not HAS_TRANSFORMERS:
-            logger.info("Transformers not installed; LLMManager running in structured heuristic mode.")
+    def _ensure_model_loaded(self):
+        """Lazy initialization: only loads model when first text generation is requested."""
+        if self._init_attempted:
             return
+        self._init_attempted = True
+
+        import os
+
+        # Check if Gemini API key is provided for 0-RAM Cloud LLM execution
+        gemini_key = getattr(settings, "GEMINI_API_KEY", "") or os.getenv("GEMINI_API_KEY", "")
+        if gemini_key:
+            self.has_api_llm = True
+            logger.info("LLM Manager using Google Gemini 1.5 API (0 MB server RAM overhead).")
+            return
+
+        global torch, AutoTokenizer, AutoModelForSeq2SeqLM
+        if torch is None:
+            try:
+                import torch
+                from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+            except ImportError:
+                logger.info("Transformers not installed; LLM Manager running in structured heuristic mode.")
+                return
+
+        # Safeguard: Render free tier (512 MB RAM limit) cannot fit flan-t5-base (990 MB weights)
+        if "base" in self.model_name.lower():
+            logger.warning(
+                f"{self.model_name} requires ~1.1 GB RAM, which exceeds Render's 512 MB limit. "
+                "Automatically selecting memory-efficient google/flan-t5-small (~300 MB) or structured agentic mode."
+            )
+            self.model_name = "google/flan-t5-small"
 
         # 1. First attempt: Load from local cache without network blocking
         try:
@@ -54,17 +76,16 @@ class LLMManagerAgent:
             self.model = AutoModelForSeq2SeqLM.from_pretrained(self.model_name, local_files_only=True)
             self.model.eval()
             self.has_llm = True
-            logger.info(f"LLM Manager successfully loaded local cached {self.model_name}.")
+            logger.info(f"LLM Manager loaded local cached {self.model_name}.")
             return
         except Exception:
-            logger.info(f"Local cache for {self.model_name} not found or incomplete.")
+            pass
 
         # 2. Check if auto-download is explicitly enabled via environment
-        import os
         allow_download = os.getenv("ENABLE_LLM_DOWNLOAD", "false").lower() == "true"
         if allow_download:
             try:
-                logger.info(f"Downloading {self.model_name} from Hugging Face Hub...")
+                logger.info(f"Downloading compact {self.model_name} from Hugging Face Hub...")
                 self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
                 self.model = AutoModelForSeq2SeqLM.from_pretrained(self.model_name)
                 self.model.eval()
@@ -74,10 +95,35 @@ class LLMManagerAgent:
             except Exception as e:
                 logger.warning(f"Could not download {self.model_name}: {e}")
 
-        logger.info(f"LLM Manager operating in structured agentic planning mode (zero latency, zero memory overhead).")
+        logger.info("LLM Manager operating in structured agentic planning mode (zero latency, zero memory overhead).")
         self.has_llm = False
 
+    def is_available(self) -> bool:
+        self._ensure_model_loaded()
+        return self.has_llm or self.has_api_llm
+
     def generate_text(self, prompt: str, max_length: int = 150) -> Optional[str]:
+        self._ensure_model_loaded()
+
+        # Option A: Cloud LLM API (Gemini)
+        if self.has_api_llm:
+            try:
+                import requests
+                api_key = getattr(settings, "GEMINI_API_KEY", "")
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
+                payload = {"contents": [{"parts": [{"text": prompt}]}]}
+                resp = requests.post(url, json=payload, timeout=8)
+                if resp.status_code == 200:
+                    data = resp.json()
+                    candidates = data.get("candidates", [])
+                    if candidates:
+                        parts = candidates[0].get("content", {}).get("parts", [])
+                        if parts:
+                            return parts[0].get("text", "").strip()
+            except Exception as e:
+                logger.warning(f"Gemini API generation error: {e}")
+
+        # Option B: Local HuggingFace Seq2Seq Model
         if not self.has_llm or not self.tokenizer or not self.model:
             return None
         try:
@@ -94,6 +140,9 @@ class LLMManagerAgent:
         except Exception as e:
             logger.warning(f"LLM text generation error: {e}")
             return None
+        finally:
+            import gc
+            gc.collect()
 
     def classify_intent(self, query: str) -> str:
         """
