@@ -15,4 +15,4 @@ services:
       - key: ENABLE_LLM_DOWNLOAD
         value: "false"
       - key: ENABLE_NLI_DOWNLOAD
-        value: "true"
+        value: "false"

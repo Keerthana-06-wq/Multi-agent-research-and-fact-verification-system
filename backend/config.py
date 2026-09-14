@@ -16,7 +16,7 @@ class Settings:
     LLM_MODEL_NAME: str = os.getenv("LLM_MODEL_NAME", "google/flan-t5-small")
     NLI_MODEL_NAME: str = os.getenv("NLI_MODEL_NAME", "cross-encoder/nli-deberta-v3-xsmall")
     ENABLE_LLM_DOWNLOAD: bool = os.getenv("ENABLE_LLM_DOWNLOAD", "false").lower() == "true"
-    ENABLE_NLI_DOWNLOAD: bool = os.getenv("ENABLE_NLI_DOWNLOAD", "true").lower() == "true"
+    ENABLE_NLI_DOWNLOAD: bool = os.getenv("ENABLE_NLI_DOWNLOAD", "false").lower() == "true"
 
     # Benchmark knowledge file
     BENCHMARK_DATA_PATH: Path = BASE_DIR / "backend" / "data" / "benchmark_facts.json"

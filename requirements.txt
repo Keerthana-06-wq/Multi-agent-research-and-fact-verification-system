@@ -11,5 +11,4 @@ beautifulsoup4>=4.12.0
 python-dotenv>=1.0.0
 pytest>=8.0.0
 transformers>=4.38.0,<4.46.0
-torch==2.2.2+cpu; sys_platform == 'linux'
-torch>=2.0.0; sys_platform != 'linux'
+torch>=2.0.0
