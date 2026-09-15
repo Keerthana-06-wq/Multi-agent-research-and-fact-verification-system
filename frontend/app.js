@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const API_BASE = (window.BACKEND_URL || "").replace(/\/$/, "");
   const form = document.getElementById("verify-form");
   const queryInput = document.getElementById("query-input");
   const clearBtn = document.getElementById("clear-btn");
@@ -124,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Load Preset Benchmarks
   async function loadPresetCases() {
     try {
-      const res = await fetch("/api/preset-cases");
+      const res = await fetch(`${API_BASE}/api/preset-cases`);
       if (!res.ok) return;
       const cases = await res.json();
       demoContainer.innerHTML = "";
@@ -175,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
     errorCard.classList.add("hidden");
 
     try {
-      const response = await fetch("/api/verify", {
+      const response = await fetch(`${API_BASE}/api/verify`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: query })
